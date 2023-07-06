@@ -1,15 +1,15 @@
 import React from "react";
-import database from "../Firebase";
+// import database from "../Firebase";
 
 const ContactUs = () => {
   const Push = () => {
-    database
-      .ref("user")
-      .set({
-        name: "Deepak",
-        age: 20,
-      })
-      .catch(alert);
+    // database
+    //   .ref("user")
+    //   .set({
+    //     name: "Deepak",
+    //     age: 20,
+    //   })
+    //   .catch(alert);
   };
   return (
     <div>

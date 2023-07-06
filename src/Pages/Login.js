@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
-
+// import { auth } from "../Firebase";
 const Login = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -13,9 +13,8 @@ const Login = () => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(data);
     if (email == user?.email && password == user?.password) {
       toast.success("Successfully Logined");
       localStorage.setItem("userlogin", true);
@@ -23,6 +22,16 @@ const Login = () => {
     } else {
       toast.error("Something went wrong");
     }
+
+    // try {
+    //   const userCredential = await auth.createUserWithEmailAndPassword(
+    //     email,
+    //     password
+    //   );
+    //   console.log(userCredential);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <div>
@@ -35,7 +44,9 @@ const Login = () => {
                 Sign in to your account
               </h1>
               <form
-                onSubmit={handleSubmit}
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                }}
                 class="space-y-4 md:space-y-6"
                 action="#"
               >

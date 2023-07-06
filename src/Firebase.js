@@ -1,16 +1,31 @@
-import firebase from "firebase";
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCWpP9EG0bQaMCGERHI-LkX3s3bZAUC34c",
+//   authDomain: "woven-bonbon-382307.firebaseapp.com",
+//   projectId: "woven-bonbon-382307",
+//   storageBucket: "woven-bonbon-382307.appspot.com",
+//   messagingSenderId: "909830975682",
+//   appId: "1:909830975682:web:5febeebb99074e7a854b5b",
+//   measurementId: "G-TFBNXLP30D",
+// };
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
 
+import firebase from "firebase/compat/app";
+import "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyAvYb0a2hnjz1zec_C4RFn1FvgEWxVOaDY",
-  authDomain: "sharpenerstore.firebaseapp.com",
-  projectId: "sharpenerstore",
-  storageBucket: "sharpenerstore.appspot.com",
-  messagingSenderId: "659549301713",
-  appId: "1:659549301713:web:2963dd281fef6cfe47cef0",
-  measurementId: "G-BEJ41MK16Q",
+  apiKey: "AIzaSyCWpP9EG0bQaMCGERHI-LkX3s3bZAUC34c",
+  authDomain: "woven-bonbon-382307.firebaseapp.com",
+  projectId: "woven-bonbon-382307",
+  storageBucket: "woven-bonbon-382307.appspot.com",
+  messagingSenderId: "909830975682",
+  appId: "1:909830975682:web:5febeebb99074e7a854b5b",
+  measurementId: "G-TFBNXLP30D",
 };
 
 firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
 
-export default database;
+const auth = firebase.auth();
+export { auth };
+export default firebase;
