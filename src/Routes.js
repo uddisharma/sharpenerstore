@@ -12,6 +12,7 @@ import AddProduct from "./Pages/Admin/AddProduct";
 import Products from "./Pages/Admin/Products";
 import ContactUs from "./Pages/ContactUs";
 import NotFound from "./Pages/404";
+import ResetPassword from "./Pages/ResetPassword";
 const AllRoutes = () => {
   return (
     <div>
@@ -27,6 +28,8 @@ const AllRoutes = () => {
         <Route path="/about-us" element={<About />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
         <Route path="/admin/products" element={<Products />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

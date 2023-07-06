@@ -1,29 +1,41 @@
-import { PaperClipIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const user = localStorage.getItem("user");
-  // console.log(user)
+
   let orders = JSON.parse(localStorage.getItem("order"));
   orders =
     orders &&
     orders.filter((e) => {
       return e.email == user;
     });
-  // console.log(orders);
+
   return (
     <div style={{ width: "80%", margin: "auto", paddingTop: "50px" }}>
       <div
         style={{ display: "flex", justifyContent: "space-between" }}
         className="px-4 sm:px-0"
       >
-        <div>
-          <h3 className="text-base font-semibold leading-7 text-gray-900">
-            User Information
-          </h3>
-          <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-            Personal details
-          </p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "50%",
+          }}
+        >
+          <div>
+            <h3 className="text-base font-semibold leading-7 text-gray-900">
+              User Information
+            </h3>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+              Personal details
+            </p>
+          </div>
+          <Link to="/reset-password">
+            <h3 className="text-base font-semibold leading-7 cursor-pointer font-bold text-green-900">
+              Reset Password
+            </h3>
+          </Link>
         </div>
         <img style={{ height: "100px", width: "100px" }} src={user?.photo} />
       </div>
