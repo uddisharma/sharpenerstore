@@ -11,6 +11,7 @@ import About from "./Pages/AboutUs";
 import AddProduct from "./Pages/Admin/AddProduct";
 import Products from "./Pages/Admin/Products";
 import ContactUs from "./Pages/ContactUs";
+import NotFound from "./Pages/404";
 const AllRoutes = () => {
   return (
     <div>
@@ -23,10 +24,10 @@ const AllRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/contact-us" element={<ContactUs />} />
-
         <Route path="/about-us" element={<About />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
         <Route path="/admin/products" element={<Products />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
