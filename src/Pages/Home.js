@@ -30,9 +30,10 @@ const Home = () => {
   };
   useEffect(() => {
     getData();
-    // localStorage.setItem("userlogin", userLogin === "true" ? true : false);
   }, []);
-
+  setTimeout(() => {
+    localStorage.removeItem("usertoken");
+  }, 300000);
   if (!usertoken) {
     return <Navigate to="/login" />;
   } else {
