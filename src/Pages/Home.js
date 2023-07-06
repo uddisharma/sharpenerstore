@@ -9,19 +9,26 @@ import { Navigate } from "react-router-dom";
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const userLogin = localStorage.getItem("userlogin");
-
-  useEffect(() => {
+  const getData = () => {
     setLoading(true);
     axios
       .get("https://dummyjson.com/products")
       .then((res) => {
         setLoading(false);
         setData(res.data);
+        if (res.status !== 200) {
+          return setError(true);
+        }
       })
       .catch((err) => {
         console.log(err);
+        setError(true);
       });
+  };
+  useEffect(() => {
+    getData();
     localStorage.setItem("userlogin", userLogin == "true" ? true : false);
   }, []);
 
@@ -53,7 +60,7 @@ const Home = () => {
             />
           </SwiperSlide>
         </Swiper>
-        <Products data={data} loading={loading} />
+        <Products data={data} loading={loading} error={error} />
       </div>
     );
   }
