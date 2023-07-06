@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
 import About from "./Pages/AboutUs";
+import AddProduct from "./Pages/Admin/AddProduct";
 const AllRoutes = () => {
   return (
     <div>
@@ -20,6 +21,7 @@ const AllRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about-us" element={<About />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
       </Routes>
     </div>
   );
