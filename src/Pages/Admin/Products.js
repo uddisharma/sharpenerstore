@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -36,9 +37,25 @@ const Products = () => {
   };
   return (
     <>
-      <h2 className="my-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-        Products
-      </h2>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignContent: "center",
+
+          width: "50%",
+          margin: "auto",
+        }}
+      >
+        <h2 className="my-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          Products
+        </h2>
+        <Link to="/admin/add-product">
+          <button className="flex h-[30pxs] mt-[20px] justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Add Product
+          </button>
+        </Link>
+      </div>
       {loading ? (
         <div style={{ display: "grid", placeItems: "center" }}>
           <img
