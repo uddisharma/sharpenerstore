@@ -7,6 +7,7 @@ import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
+import About from "./Pages/AboutUs";
 const AllRoutes = () => {
   return (
     <div>
@@ -18,6 +19,7 @@ const AllRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/about-us" element={<About />} />
       </Routes>
     </div>
   );
