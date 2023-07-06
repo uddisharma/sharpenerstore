@@ -14,7 +14,7 @@ const cartSlice = createSlice({
         state.push({
           ...action.payload.data,
           quantity: 1,
-          user: action.payload.user.email,
+          user: action.payload.user,
         });
       }
     },

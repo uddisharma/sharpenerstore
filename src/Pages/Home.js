@@ -10,7 +10,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const userLogin = localStorage.getItem("userlogin");
+  const usertoken = localStorage.getItem("usertoken");
   const getData = () => {
     setLoading(true);
     axios
@@ -30,10 +30,10 @@ const Home = () => {
   };
   useEffect(() => {
     getData();
-    localStorage.setItem("userlogin", userLogin === "true" ? true : false);
+    // localStorage.setItem("userlogin", userLogin === "true" ? true : false);
   }, []);
 
-  if (userLogin == "false") {
+  if (!usertoken) {
     return <Navigate to="/login" />;
   } else {
     return (

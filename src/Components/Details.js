@@ -67,7 +67,7 @@ export default function Details({ data }) {
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user");
   return (
     <div className="bg-white">
       <div className="pt-6">

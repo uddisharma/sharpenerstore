@@ -1,10 +1,14 @@
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
-// import { auth } from "../Firebase";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 const Login = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -13,25 +17,43 @@ const Login = () => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (email == user?.email && password == user?.password) {
+  //     toast.success("Successfully Logined");
+  //     localStorage.setItem("userlogin", true);
+  //     window.location.href = "/";
+  //   } else {
+  //     toast.error("Something went wrong");
+  //   }
+
+  //   // try {
+  //   //   const userCredential = await auth.createUserWithEmailAndPassword(
+  //   //     email,
+  //   //     password
+  //   //   );
+  //   //   console.log(userCredential);
+  //   // } catch (error) {
+  //   //   console.error(error);
+  //   // }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email == user?.email && password == user?.password) {
-      toast.success("Successfully Logined");
-      localStorage.setItem("userlogin", true);
-      window.location.href = "/";
-    } else {
-      toast.error("Something went wrong");
-    }
-
-    // try {
-    //   const userCredential = await auth.createUserWithEmailAndPassword(
-    //     email,
-    //     password
-    //   );
-    //   console.log(userCredential);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    setLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigate("/");
+        localStorage.setItem("user", email);
+        localStorage.setItem("usertoken", user.accessToken);
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+        setLoading(false);
+      });
   };
   return (
     <div>
@@ -107,18 +129,27 @@ const Login = () => {
                     </div>
                   </div>
                   <a
-                    href="#"
+                    href="/"
                     class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Forgot password?
                   </a>
                 </div>
-                <button
-                  type="submit"
-                  class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Sign in
-                </button>
+                {loading ? (
+                  <button
+                    disabled
+                    class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Loading...
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Sign in
+                  </button>
+                )}
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
                   <Link

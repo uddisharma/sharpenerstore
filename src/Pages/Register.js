@@ -1,38 +1,58 @@
 import axios from "axios";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 const Register = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
-    photo: "",
-    fullname: "",
     email: "",
     password: "",
   });
-  const { photo, fullname, email, password } = data;
+  const { email, password } = data;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  const onUploadImage = (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "mivjmkcg");
-    axios
-      .post("https://api.cloudinary.com/v1_1/dvuphar2o/image/upload", formData)
-      .then((res) => {
-        setData({ ...data, photo: res.data.url });
-      });
-  };
-  const handleSubmit = (e) => {
+  // const onUploadImage = (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "mivjmkcg");
+  //   axios
+  //     .post("https://api.cloudinary.com/v1_1/dvuphar2o/image/upload", formData)
+  //     .then((res) => {
+  //       setData({ ...data, photo: res.data.url });
+  //     });
+  // };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (document.getElementById("confirm-password").value != password) {
+  //     toast.error("passwords is incorrect");
+  //   } else {
+  //     localStorage.setItem("user", JSON.stringify(data));
+  //     toast.success("Successfully Signed Up");
+
+  //   }
+  // };
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (document.getElementById("confirm-password").value != password) {
-      toast.error("passwords is incorrect");
-    } else {
-      localStorage.setItem("user", JSON.stringify(data));
-      toast.success("Successfully Signed Up");
-      
-    }
+    setLoading(true);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        setLoading(false);
+        navigate("/login");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+      });
   };
   return (
     <div>
@@ -49,7 +69,7 @@ const Register = () => {
                 class="space-y-4 md:space-y-6"
                 action="#"
               >
-                <div>
+                {/* <div>
                   <label
                     for="email"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -65,8 +85,8 @@ const Register = () => {
                     placeholder="name@company.com"
                     required=""
                   />
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <label
                     for="email"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -83,7 +103,7 @@ const Register = () => {
                     placeholder="Full Name"
                     required=""
                   />
-                </div>
+                </div> */}
                 <div>
                   <label
                     for="email"
@@ -161,12 +181,21 @@ const Register = () => {
                     </label>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Create an account
-                </button>
+                {loading ? (
+                  <button
+                    disabled
+                    class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Loading...
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Create an account
+                  </button>
+                )}
                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
                   <Link

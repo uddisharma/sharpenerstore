@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-
+import { signOut } from "firebase/auth";
+import auth from "../firebase";
 const navigation = [
   { name: "Products", href: "/", current: true },
   { name: "Contact Us", href: "contact-us", current: false },
@@ -13,8 +14,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 export default function Navbar() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userLogin = localStorage.getItem("userlogin");
+  const user = localStorage.getItem("user");
+  const usertoken = localStorage.getItem("usertoken");
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -76,14 +77,14 @@ export default function Navbar() {
                 </button>
 
                 {/* Profile dropdown */}
-                {userLogin == "true" ? (
+                {usertoken ? (
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={user?.photo}
+                          src={user}
                           alt=""
                         />
                       </Menu.Button>
@@ -101,13 +102,13 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              {user?.fullname}
+                              {user}
                             </a>
                           )}
                         </Menu.Item>
@@ -127,13 +128,22 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              href="/"
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                               onClick={() => {
-                                localStorage.setItem("userlogin", false);
+                                // signOut(auth)
+                                //   .then((res) => {
+                                //     console.log(res);
+                                //     localStorage.removeItem("usertoken");
+                                //     window.location.reload();
+                                //   })
+                                //   .catch((error) => {
+                                //     console.log(error);
+                                //   });
+                                localStorage.removeItem("usertoken");
                                 window.location.reload();
                               }}
                             >

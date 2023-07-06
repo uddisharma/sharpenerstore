@@ -2,13 +2,13 @@ import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user");
   // console.log(user)
   let orders = JSON.parse(localStorage.getItem("order"));
   orders =
     orders &&
     orders.filter((e) => {
-      return e.email == user.email;
+      return e.email == user;
     });
   // console.log(orders);
   return (
@@ -34,7 +34,7 @@ export default function Profile() {
               Full name
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {user?.fullname}
+              {user}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -42,7 +42,7 @@ export default function Profile() {
               Email Address
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              {user?.email}
+              {user}
             </dd>
           </div>
         </dl>

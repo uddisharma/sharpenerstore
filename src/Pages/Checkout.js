@@ -7,14 +7,13 @@ const Checkout = () => {
   const [delivery, setDelivery] = useState("regular");
   let extisingorders = JSON.parse(localStorage.getItem("order"));
   let orders = extisingorders ? extisingorders : [];
-  const user = JSON.parse(localStorage.getItem("user"));
-  const dispatch = useDispatch();
+  const user = localStorage.getItem("user");
+
   let subTotal = useMemo(() => {
     return cartdata.reduce((total, val) => total + val.quantity * val.price, 0);
   }, [cartdata]);
   const [data, setData] = useState({
-    name: user.fullname,
-    email: user.email,
+    email: user,
     phone: "",
     address: "",
     state: "",
@@ -283,7 +282,7 @@ const Checkout = () => {
             <div class="relative">
               <input
                 disabled
-                value={user.email}
+                value={user}
                 onChange={handleChange}
                 type="text"
                 id="email"

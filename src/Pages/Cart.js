@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   let cartdata = useSelector((state) => state.cartitems);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user");
   cartdata = cartdata.filter((e) => {
-    return e.user === user.email;
+    return e.user === user;
   });
 
   const dispatch = useDispatch();
