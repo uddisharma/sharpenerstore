@@ -8,12 +8,15 @@ import Products from "../Components/Products";
 import { Navigate } from "react-router-dom";
 const Home = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const userLogin = localStorage.getItem("userlogin");
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get("https://dummyjson.com/products")
       .then((res) => {
+        setLoading(false);
         setData(res.data);
       })
       .catch((err) => {
@@ -50,7 +53,7 @@ const Home = () => {
             />
           </SwiperSlide>
         </Swiper>
-        <Products data={data} />
+        <Products data={data} loading={loading} />
       </div>
     );
   }
