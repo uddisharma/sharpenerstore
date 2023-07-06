@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Product = ({ id, title, brand, price, images }) => {
-  // console.log(images);
   return (
     <div>
       <Link to={`/product/${id}`}>

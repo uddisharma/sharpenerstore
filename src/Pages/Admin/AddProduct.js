@@ -6,8 +6,9 @@ export default function AddProduct() {
     title: "",
     price: "",
     brand: "",
+    stock: "",
   });
-  const { title, price, brand } = data;
+  const { title, price, brand, stock } = data;
   const [added, setAdded] = useState(false);
   const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
@@ -17,17 +18,19 @@ export default function AddProduct() {
     e.preventDefault();
     setLoading(true);
     axios
-      .post("https://dummyjson.com/products/add", data)
+      .post("http://localhost:8080/products", data)
       .then((res) => {
         console.log(res);
         setLoading(false);
         setAdded(true);
+        setData({ ...data, title: "", price: "", brand: "", stock: "" });
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
+  
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -102,6 +105,27 @@ export default function AddProduct() {
                   value={brand}
                   onChange={handleChange}
                   type="text"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Stock
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="stock"
+                  name="stock"
+                  value={stock}
+                  onChange={handleChange}
+                  type="number"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

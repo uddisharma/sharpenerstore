@@ -9,6 +9,7 @@ import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
 import About from "./Pages/AboutUs";
 import AddProduct from "./Pages/Admin/AddProduct";
+import Products from "./Pages/Admin/Products";
 const AllRoutes = () => {
   return (
     <div>
@@ -22,6 +23,7 @@ const AllRoutes = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/about-us" element={<About />} />
         <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/products" element={<Products />} />
       </Routes>
     </div>
   );

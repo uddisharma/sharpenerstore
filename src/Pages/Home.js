@@ -14,8 +14,9 @@ const Home = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://dummyjson.com/products")
+      .get("http://localhost:8080/products")
       .then((res) => {
+        // console.log(res)
         setLoading(false);
         setData(res.data);
         if (res.status !== 200) {
@@ -29,7 +30,7 @@ const Home = () => {
   };
   useEffect(() => {
     getData();
-    localStorage.setItem("userlogin", userLogin == "true" ? true : false);
+    localStorage.setItem("userlogin", userLogin === "true" ? true : false);
   }, []);
 
   if (userLogin == "false") {
